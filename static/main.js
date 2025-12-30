@@ -103,8 +103,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showSuccess(data) {
         resultSuccess.classList.remove('hidden');
-        downloadLink.href = data.download_url;
-        downloadLink.download = ''; // Let browser handle name
+
+        // Handle Base64 Download
+        if (data.file_base64) {
+            const byteCharacters = atob(data.file_base64);
+            const byteNumbers = new Array(byteCharacters.length);
+            for (let i = 0; i < byteCharacters.length; i++) {
+                byteNumbers[i] = byteCharacters.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+
+            downloadLink.href = url;
+            downloadLink.download = data.filename || 'cleaned_document.pdf';
+        } else if (data.download_url) {
+            // Fallback
+            downloadLink.href = data.download_url;
+            downloadLink.download = '';
+        }
     }
 
     function showError(msg) {

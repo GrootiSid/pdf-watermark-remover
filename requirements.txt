@@ -1,1 +1,2 @@
-pymupdf
+Flask==3.0.0
+pymupdf==1.25.1

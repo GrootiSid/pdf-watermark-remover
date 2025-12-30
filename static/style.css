@@ -110,6 +110,13 @@ header {
 .tagline {
     color: var(--text-secondary);
     font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+.highlight {
+    color: #9d4edd;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 /* Glass Card */
